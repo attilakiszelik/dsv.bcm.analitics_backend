@@ -10,11 +10,11 @@
 	</parent>
 	
 	<groupId>com.kaev</groupId>
-	<artifactId>supporthours</artifactId>
+	<artifactId>analitics</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
-	<name>supporthours</name>
-	<description>DSV - BCM - supporthours reporter project</description>
+	<name>analitics</name>
+	<description>DSV - BCM - analitics reporter project</description>
 	
 	<properties>
 		<java.version>8</java.version>

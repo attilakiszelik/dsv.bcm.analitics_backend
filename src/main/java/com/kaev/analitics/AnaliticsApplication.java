@@ -1,13 +1,13 @@
-package com.kaev.supporthours;
+package com.kaev.analitics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SupportHoursApplication {
+public class AnaliticsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SupportHoursApplication.class, args);
+		SpringApplication.run(AnaliticsApplication.class, args);
 	}
 
 }

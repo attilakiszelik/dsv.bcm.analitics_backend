@@ -1,4 +1,4 @@
-package com.kaev.supporthours.model;
+package com.kaev.analitics.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "automationsupporttime")
-public class LogEntry {
+public class SupporthoursLogEntry {
 	
 	@Id
 	@GeneratedValue

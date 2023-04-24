@@ -1,26 +1,28 @@
-package com.kaev.supporthours.service;
+package com.kaev.analitics.service;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.kaev.supporthours.model.LogEntry;
-import com.kaev.supporthours.model.ReportRow;
-import com.kaev.supporthours.repository.LogEntryRepository;
+import com.kaev.analitics.model.ReportRow;
+import com.kaev.analitics.model.UsageLogEntry;
+import com.kaev.analitics.repository.UsageRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ReportService {
+public class UsageService {
 
-	private final LogEntryRepository logEntryRepository;
+	private final UsageRepository usageRepository;
+	private final Initialize initialize;
 	
 	public List<ReportRow> createReport(String year){
 		
-		List<LogEntry> logEntries = logEntryRepository.findAllInYear(year);
+		List<UsageLogEntry> logEntries = usageRepository.findAllInYear(year);
 
 		List<ReportRow> reportRows = new ArrayList<ReportRow>();;
 		
@@ -30,7 +32,7 @@ public class ReportService {
 			String project = l.getProject();
 			int month = Integer.parseInt(l.getTimestamp().substring(4,6));
 			int index = month-1;
-			int workminutes = l.getWorkminutes();
+			String user = l.getUsername();
 			
 			Optional<ReportRow> existingReportRow = reportRows.stream().filter(r -> r.getProject().equals(project)).findFirst();
 			
@@ -38,15 +40,20 @@ public class ReportService {
 				
 				ReportRow r = existingReportRow.get();
 				
-				//munkaórák számának növelée
-				r.setUsages(index, r.getUsages(index) + workminutes); 
+				//használat növelée
+				r.setUsagesInTheMonth(index, r.getUsagesInTheMonth(index) + 1); 
+				//használó hozzáadása, ha még nem szerepel
+				if(!r.getUsersInTheMonth(index).contains(user)) {
+					r.setUsersInTheMonth(index, user);
+				}	
 				
 			} else {
 				
 				//ha a projektnek nincs még riport sora
-				ReportRow newReportRow = initializeNewRepotRow();
+				ReportRow newReportRow = initialize.newRepotRow();
 				newReportRow.setProject(project);
-				newReportRow.setUsages(index, workminutes);
+				newReportRow.setUsagesInTheMonth(index, 1);
+				newReportRow.setUsersInTheMonth(index, user);
 				reportRows.add(newReportRow);
 				
 			}
@@ -54,16 +61,6 @@ public class ReportService {
 		});
 		
 		return reportRows;
-		
-	}
-
-	public ReportRow initializeNewRepotRow() {
-		
-		List<Integer> usages = new ArrayList<Integer>();
-			for (int i=0; i<=11; i++)
-				usages.add(0);
-
-		return new ReportRow("",usages);
 		
 	}
 

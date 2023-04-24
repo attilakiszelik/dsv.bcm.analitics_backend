@@ -1,4 +1,4 @@
-package com.kaev.supporthours.repository;
+package com.kaev.analitics.repository;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.kaev.supporthours.model.LogEntry;
+import com.kaev.analitics.model.SupporthoursLogEntry;
 
-public interface LogEntryRepository extends JpaRepository<LogEntry, Long>{
+public interface SupporthourRepository extends JpaRepository<SupporthoursLogEntry, Long>{
 	
 	@Query(value = "SELECT * FROM AUTOMATIONSUPPORTTIME a WHERE LEFT(a.TIMESTAMP,4) = :year", nativeQuery = true)
-	List<LogEntry> findAllInYear(@Param("year") String year);
+	List<SupporthoursLogEntry> findAllInYear(@Param("year") String year);
 	
 }

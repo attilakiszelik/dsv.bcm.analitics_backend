@@ -16,7 +16,7 @@ import lombok.Setter;
 @Data
 public class ReportRow {
 
-	private String project;
+	private String projectname;
 	private List<Double> supporthours;
 	private List<Integer> usages;
 	private Map<Integer, List<String>> users;

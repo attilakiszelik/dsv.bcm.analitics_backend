@@ -1,6 +1,5 @@
 package com.kaev.analitics.service;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +33,7 @@ public class UsageService {
 			int index = month-1;
 			String user = l.getUsername();
 			
-			Optional<ReportRow> existingReportRow = reportRows.stream().filter(r -> r.getProject().equals(project)).findFirst();
+			Optional<ReportRow> existingReportRow = reportRows.stream().filter(r -> r.getProjectname().equals(project)).findFirst();
 			
 			if (existingReportRow.isPresent()) {
 				
@@ -51,7 +50,7 @@ public class UsageService {
 				
 				//ha a projektnek nincs még riport sora
 				ReportRow newReportRow = initialize.newRepotRow();
-				newReportRow.setProject(project);
+				newReportRow.setProjectname(project);
 				newReportRow.setUsagesInTheMonth(index, 1);
 				newReportRow.setUsersInTheMonth(index, user);
 				reportRows.add(newReportRow);

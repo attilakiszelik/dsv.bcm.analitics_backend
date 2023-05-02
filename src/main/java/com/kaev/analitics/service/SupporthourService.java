@@ -1,9 +1,7 @@
 package com.kaev.analitics.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -35,7 +33,7 @@ public class SupporthourService {
 			int index = month-1;
 			double workminutes = (double) l.getWorkminutes();
 			
-			Optional<ReportRow> existingReportRow = reportRows.stream().filter(r -> r.getProject().equals(project)).findFirst();
+			Optional<ReportRow> existingReportRow = reportRows.stream().filter(r -> r.getProjectname().equals(project)).findFirst();
 			
 			if (existingReportRow.isPresent()) {
 				
@@ -48,7 +46,7 @@ public class SupporthourService {
 				
 				//ha a projektnek nincs még riport sora
 				ReportRow newReportRow = initialize.newRepotRow();
-				newReportRow.setProject(project);
+				newReportRow.setProjectname(project);
 				newReportRow.setSupporthours(index, Math.round(workminutes/60.00));
 				reportRows.add(newReportRow);
 				
